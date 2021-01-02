@@ -1,65 +1,47 @@
 ---
-title: 'Getting started'
-description: Learn how to get started with Rocket Docs.
+title: 'Basic Concepts.'
+description: Basic concepts in Elasticsearch.
 ---
 
-The best way to start is by using our starter:
+If you are a beginner in Elasticsearch, there are many concepts in it, and it can be quite overwhelming at the beginning.
+Here we are going to cover the most basic ones, so you can easily read this guide.
 
-```bash
-npx gatsby new rocket-docs https://github.com/rocketseat/gatsby-starter-rocket-docs
-```
+## Cluster
 
-But, if you prefer, you can install and configure manually.
+Elasticsearch has it in its name. It's elastic, which implies a distributed system, that can scale horizontally over commodity hardware. You can run Elasticsearch instances  on distributes machines, physical machines, VMs or even containers
+and form an Elasticsearh cluster. 
 
-```bash
-# Using Yarn:
-yarn add @rocketseat/gatsby-theme-docs
+## Index
 
-# Using NPM:
-npm i @rocketseat/gatsby-theme-docs
-```
+Indices are the basic building block of Elasticsearch. If you are coming from the relational world
+an index is similar to a relational database. 
 
-## Theme Options
+You can create as many as you want, and each index can contain multiple documents or rows, as we call them in the relational world.
 
-| Key        | Default | Required | Description                                                                                                                                                            |
-| ---------- | ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| basePath   | /       | No       | Root url for all docs                                                                                                                                                  |
-| configPath | config  | No       | Location of config files                                                                                                                                               |
-| docsPath   | docs    | No       | The site description for SEO and social (FB, Twitter) tags                                                                                                             |
-| githubUrl  | -       | No       | The complete URL of your repository. For example: `https://github/rocketseat/gatsby-themes`                                                                            |
-| baseDir    | -       | No       | If your Gatsby site does not live in the root of your project directory/git repo, pass the subdirectory name here (ex: `docs`)                                         |
-| withMdx    | true    | No       | If necessary, you can add your own MDX options to the theme. To do so, make sure you turn this option to false and include `gatsby-plugin-mdx` on your `gatsby-config` |
-| branch     | master  | No       | Default branch of the repository                                                                                                                                       |
+Most of the operations are performed on one or more indices. Example, search, save or index, etc.
 
-## Example usage
+## Documents
 
-```js title=gatsby-config.js
-module.exports = {
-  siteMetadata: {
-    siteTitle: `@rocketseat/gatsby-theme-docs`,
-    defaultTitle: `@rocketseat/gatsby-theme-docs`,
-    siteTitleShort: `gatsby-theme-docs`,
-    siteDescription: `Out of the box Gatsby Theme for creating documentation websites easily and quickly`,
-    siteUrl: `https://rocketdocs.netlify.com`,
-    siteAuthor: `@rocketseat`,
-    siteImage: `/banner.png`,
-    siteLanguage: `en`,
-    themeColor: `#8257E6`,
-    basePath: `/`,
-  },
-  plugins: [
-    {
-      resolve: `@rocketseat/gatsby-theme-docs`,
-      options: {
-        basePath: `/`,
-        configPath: `src/config`,
-        docsPath: `src/docs`,
-        githubUrl: `https://github.com/rocketseat/gatsby-themes`,
-        baseDir: `examples/gatsby-theme-docs`,
-      },
-    },
-  ],
-};
-```
+Documents are JSON documents that are stored in an index. Document fields can be of any type, e.x. String, integer, and others. Also, there are some reserved keys example, `_id`, `_index`.
 
-Once you have installed the dependencies you will need to create the [navigation](/usage/navigation) and [documentation](/usage/creating-docs) files.
+## Mapping
+
+Mapping is the schema of a document in Elasticsearch. Mappings can be defined manually, for fine-grain control, or inferred
+by the documents indexed automatically. In general, you can skip defining the mapping when you are just starting, but as you will see, there are cases where defining your own schema can be beneficial too.
+
+# Shards
+
+Shards are the unit of data partitioning in an index. As your data grows, there is a point where they can't fit into an index. 
+With shards, you can define how many blocks your data will be split into. That way, you can distribute your data across multiple nodes
+and your queries can improve and scale as you grow your dataset.
+There one thing to keep in mount about shards is that you have to define them when you are designing your indices, 
+or else you will need to reshard your data if you need more shards for performance reasons, 
+or just because you can't fit all your data. 
+The currently preferred limit for a shard size is 50GB.
+
+# Replicas
+
+Replicas are copies of shards that exist on separate nodes. This is a great way to improve the availability of your cluster.
+Replicas settings can be defined at the beginning but also altered after index creation. 
+When designing your indices, you must keep in mind that the more replicas you add, the more resources your cluster will need to save
+all that data. 
