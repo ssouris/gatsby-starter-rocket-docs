@@ -29,7 +29,7 @@ Documents are JSON documents that are stored in an index. Document fields can be
 Mapping is the schema of a document in Elasticsearch. Mappings can be defined manually, for fine-grain control, or inferred
 by the documents indexed automatically. In general, you can skip defining the mapping when you are just starting, but as you will see, there are cases where defining your own schema can be beneficial too.
 
-# Shards
+## Shards
 
 Shards are the unit of data partitioning in an index. As your data grows, there is a point where they can't fit into an index. 
 With shards, you can define how many blocks your data will be split into. That way, you can distribute your data across multiple nodes
@@ -39,7 +39,7 @@ or else you will need to reshard your data if you need more shards for performan
 or just because you can't fit all your data. 
 The currently preferred limit for a shard size is 50GB.
 
-# Replicas
+## Replicas
 
 Replicas are copies of shards that exist on separate nodes. This is a great way to improve the availability of your cluster.
 Replicas settings can be defined at the beginning but also altered after index creation. 
